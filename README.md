@@ -129,7 +129,7 @@ The plot of the forecasted data gives a prediction of the behaviour of data in  
 
 # Database Description:-
 A database is created in PostgreSQL and it is named as Predictive_Analysis_Tool.
-Inside this following schemas are created : – 
+Inside this following tables are created : – 
 
 ### a)	user_table :
 This contains the details of authenticated users. It contains the following fields :-<br>
