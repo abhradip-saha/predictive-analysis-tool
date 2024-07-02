@@ -9,7 +9,7 @@ from psycopg2 import sql
 from sqlalchemy import create_engine, MetaData, Table, select
 
 app = Flask(__name__)
-csv_file = './updated_Nic_test data.csv'  # Update with your CSV file path
+csv_file = './updated_test data.csv'  # Update with your CSV file path
 api_url = "http://localhost:8080/auth/fetch-redis"  # Replace with your API endpoint
 
 
@@ -34,7 +34,7 @@ finally:
 
 # PostgreSQL connection parameters
 db_params = {
-    'dbname': 'NIC_Predictive_Analysis',
+    'dbname': 'Predictive_Analysis_Tool',
     'user': 'postgres',
     'password': 'Agartala',
     'host': 'localhost',
@@ -121,7 +121,7 @@ def get_data(reqKey):
         db_password = 'Agartala'
         db_hostname = 'localhost'
         port = 5432
-        db_name = 'NIC_Predictive_Analysis'
+        db_name = 'Predictive_Analysis_Tool'
         schema_name = 'public'
         table_name = 'forecast_results'
 
