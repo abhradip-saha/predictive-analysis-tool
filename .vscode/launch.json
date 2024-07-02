@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-Jwtexample5Application<jwtexample5>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.jwt.example.Jwtexample5Application",
+            "projectName": "jwtexample5",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
