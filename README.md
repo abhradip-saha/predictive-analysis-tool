@@ -6,11 +6,11 @@ This is a group project (predominantly a REST API) whose objective is to predict
 
 # Project Summary :-
 This project is divided into six parts:-
-**1)**  Authentication
-**2)** Data in the form of JSON being pushed to redis
-**3)** Data being obtained from redis and send to the processor in the form of JSON followed by deletion of data from redis. 
-**4)**  Processing of data.
-**5)**  Save the processed data in PostgreSQL.
+**1)**  Authentication<br>
+**2)** Data in the form of JSON being pushed to redis<br>
+**3)** Data being obtained from redis and send to the processor in the form of JSON followed by deletion of data from redis.<br>
+**4)**  Processing of data.<br>
+**5)**  Save the processed data in PostgreSQL.<br>
 **6)**  Fetch the processed data from PostgreSQL.                                
 
 
