@@ -50,17 +50,20 @@ To prepare the prediction model ARIMA algorithm is used where Flask has been use
 •	Abhishek Das
 
 # Format of JSON data to be pushed to redis:-
-[<br>
-&nbsp &nbsp{<br>
-&nbsp &nbsp&nbsp &nbsp &nbsp"Category":"ABC",<br>
-&nbsp &nbsp&nbsp &nbsp &nbsp"Sub Category":"A",<br>
-&nbsp &nbsp&nbsp &nbsp &nbsp"Expected Period in month":12,<br>
-&nbsp &nbsp&nbsp &nbsp &nbsp"Out_data_pattern":3,<br>
-&nbsp &nbsp&nbsp &nbsp &nbsp"demand_date":"2024-05-27",<br>
-&nbsp &nbsp&nbsp &nbsp &nbsp"demand_Qty":15,<br>
-&nbsp &nbsp&nbsp &nbsp &nbsp"analysis year":2024<br>
-&nbsp &nbsp}<br>
-]
+<pre>
+ [
+   {
+     "Category":"ABC",<br>
+     "Sub Category":"A",<br>
+     "Expected Period in month":12,<br>
+     "Out_data_pattern":3,<br>
+     "demand_date":"2024-05-27",<br>
+     "demand_Qty":15,<br>
+     "analysis year":2024<br>
+   }
+ ]
+</pre>
+
 
 
 
