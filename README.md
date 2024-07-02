@@ -5,7 +5,7 @@ This is a group project (predominantly a REST API) whose objective is to predict
 ![Screenshot (152)](https://github.com/abhradip-saha/predictive-analysis-tool/assets/110524706/99b1ab9f-8d21-4283-8092-620c6d04be29)
 
 # Project Summary :-
-This project is divided into six parts:-
+This project is divided into six parts:-<br>
 **1)**  Authentication<br>
 **2)** Data in the form of JSON being pushed to redis<br>
 **3)** Data being obtained from redis and send to the processor in the form of JSON followed by deletion of data from redis.<br>
