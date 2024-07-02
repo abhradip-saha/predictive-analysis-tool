@@ -1,17 +1,17 @@
 # Predictive Analysis Tool :-
-This is a group project whose objective is to predict the behaviour of data on the basis of a set of data taken as input and it is further processed and plotted. By going through the plotted data we can predict the behaviour of similar form of data in future.
+This is a group project(predominantly a REST API) whose objective is to predict the behaviour of data on the basis of a set of data taken as input and it is further processed and plotted. By going through the plotted data we can predict the behaviour of similar form of data in future.
 
 # Flowchart :-
 ![Screenshot (152)](https://github.com/abhradip-saha/predictive-analysis-tool/assets/110524706/99b1ab9f-8d21-4283-8092-620c6d04be29)
 
 # Project Summary :-
 This project is divided into six parts:-
-1)  Authentication
-2) Data in the form of JSON being pushed to redis
-3) Data being obtained from redis and send to the processor in the form of JSON followed by deletion of data from redis. 
-4)  Processing of data.
-5)  Save the processed data in PostgreSQL.
-6)  Fetch the processed data from PostgreSQL.                                
+**1)**  Authentication
+**2)** Data in the form of JSON being pushed to redis
+**3)** Data being obtained from redis and send to the processor in the form of JSON followed by deletion of data from redis. 
+**4)**  Processing of data.
+**5)**  Save the processed data in PostgreSQL.
+**6)**  Fetch the processed data from PostgreSQL.                                
 
 
 # Techstack :-
