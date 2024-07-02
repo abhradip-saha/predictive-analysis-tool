@@ -107,15 +107,15 @@ Contributions :-
 
 Format of JSON data to be pushed to redis:-
 [
-    {
- "Category":"ABC",
- 	"Sub Category":"A",
- 	"Expected Period in month":12,
- "Out_data_pattern":3,
- "demand_date":"2024-05-27",
- 	"demand_Qty":15,
- 	"analysis year":2024
-     }
+{
+	"Category":"ABC",
+	"Sub Category":"A",
+	"Expected Period in month":12,
+	"Out_data_pattern":3,
+	"demand_date":"2024-05-27",
+	"demand_Qty":15,
+	"analysis year":2024
+ }
 ]
 
 
