@@ -49,7 +49,7 @@ To prepare the prediction model **ARIMA algorithm** is used where **Flask** has 
 •	Diya Banik<br>
 •	Abhishek Das
 
-# Format of JSON data to be pushed to redis:-
+# Format of JSON data to be pushed to redis :-
 <pre>
  [
    {
@@ -68,7 +68,7 @@ To prepare the prediction model **ARIMA algorithm** is used where **Flask** has 
 
 
 
-# Microservices:-
+# Microservices :-
 Following are the microservices used in this project:-
 ### a)	Authentication:-
 This is for the purpose of authenticating the project using jwt token. It contains the following API endpoints :<br>
@@ -84,7 +84,7 @@ It fetches the data in the form of json and immediately deletes it from the redi
 •	**(/auth/fetch-redis) :** A get method to extract JSON data from redis so that it can be processed and the data gets deleted from redis immediately.
 
 
-# Integration of ARIMA Forecasting with the Saving and Fetching of processed data:-
+# Integration of ARIMA Forecasting with the Saving and Fetching of processed data :-
  This application integrates **ARIMA (AutoRegressive Integrated Moving Average)** forecasting to predict future demand quantities based on historical data. The process involves several key steps: 
 
 ### 1. Data Loading and Preprocessing: 
@@ -126,11 +126,11 @@ It fetches the data in the form of json and immediately deletes it from the redi
 
 
 
-# Plot of Forecasted Data:- 
+# Plot of Forecasted Data :- 
 ![image](https://github.com/abhradip-saha/predictive-analysis-tool/assets/110524706/da6b3997-8dc4-4038-a44f-0b0dc0544788)
 The plot of the forecasted data gives a prediction of the behaviour of data in  the future. It takes the data as input and analyses it using the ARIMA algorithm and plots a graph that will predict the nature of the data **over a period of next 12 months**. Here the blue solid plot represents the behaviour of input data and the red dotted plot represents the behaviour of predicted or forecasted data over a period of next 12 months. 
 
-# Database Description:-
+# Database Description :-
 A database is created in PostgreSQL and it is named as **Predictive_Analysis_Tool**.
 Inside this following tables are created : – 
 
@@ -150,6 +150,6 @@ This contains the processed data. The fields in it are :-<br>
 •	**forecast_qty** (int)<br>
 •	**reqKey** (varchar(150))
 
-# Conclusion:-
+# Conclusion :-
 On execution of this project we successfully obtained the input data and pushed it into **redis on port 6380** and executed the **SpringBoot microservice on port 8080** followed by processing of the data using **flask on port 5000** which is finally saved to PostgreSQL and it can be fetched from the PostgreSQL database. In future we can use this Predictive Analysis Tool to predict the nature of data and tell us about its behaviour.
 
