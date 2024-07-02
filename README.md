@@ -2,7 +2,8 @@
 This is a group project (predominantly a REST API) whose objective is to predict the behaviour of data on the basis of a set of data taken as input and it is further processed and plotted. By going through the plotted data we can predict the behaviour of similar form of data in future.
 
 # Flowchart :-
-![Screenshot (152)](https://github.com/abhradip-saha/predictive-analysis-tool/assets/110524706/99b1ab9f-8d21-4283-8092-620c6d04be29)
+![Screenshot (153)](https://github.com/abhradip-saha/predictive-analysis-tool/assets/110524706/ee408e48-3f82-4d70-aaa5-999a8b672ba3)
+
 
 # Project Summary :-
 This project is divided into six parts:-<br>
