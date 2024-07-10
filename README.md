@@ -151,6 +151,10 @@ This contains the processed data. The fields in it are :-<br>
 •	**forecast_qty** (int)<br>
 •	**reqKey** (varchar(150))
 
+# Dashboard Created With Power BI
+![Screenshot (154)](https://github.com/abhradip-saha/predictive-analysis-tool/assets/110524706/b6154942-22ae-42ee-8c17-62558b0b2441)
+
+
 # Conclusion :-
 On execution of this project we successfully obtained the input data and pushed it into **redis on port 6380** and executed the **SpringBoot microservice on port 8080** followed by processing of the data using **flask on port 5000** which is finally saved to PostgreSQL and it can be fetched from the PostgreSQL database. In future we can use this Predictive Analysis Tool to predict the nature of data and tell us about its behaviour.
 
