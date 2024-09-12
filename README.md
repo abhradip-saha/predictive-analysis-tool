@@ -9,7 +9,7 @@ This is a group project (predominantly a REST API) whose objective is to predict
 This project is divided into six parts:-<br>
 **1)**  Authentication<br>
 **2)** Data in the form of JSON being pushed to redis<br>
-**3)** Data being obtained from redis and send to the processor in the form of JSON followed by deletion of data from redis.<br>
+**3)** Data being obtained from redis and sent to the processor in the form of JSON followed by deletion of data from redis.<br>
 **4)**  Processing of data.<br>
 **5)**  Save the processed data in PostgreSQL.<br>
 **6)**  Fetch the processed data from PostgreSQL.                                
