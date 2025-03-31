@@ -6,29 +6,15 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class UserRepoImpl implements UserRepo{
+public class UserFetchRepoImpl implements UserFetchRepo{
     
     @Autowired
     private RedisTemplate redisTemplate;
-   
-    @Override
-    public boolean saveData(User data){
-        try{
-            redisTemplate.opsForHash().put("KEY", data.getKey() , data);
-            return true;
-        }catch(Exception e){
-            e.printStackTrace();
-            return false;
-        }
-    }
+
     @Override
     public List<User> fetchAllUser() {
         List<User> nics;
         nics=redisTemplate.opsForHash().values("KEY");
         return nics;
-    }
-    @Override
-    public void deleteAllUser() {
-        redisTemplate.getConnectionFactory().getConnection().flushDb();
     }
 }

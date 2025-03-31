@@ -6,10 +6,6 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepo {
-    boolean saveData(User data);
-
-    List<User> fetchAllUser();
-
+public interface UserDelRepo {
     void deleteAllUser();
 }

@@ -1,6 +1,6 @@
 package com.jwt.example.services;
 
-import com.jwt.example.entities.JwtUser;
+import com.jwt.example.models.JwtUser;
 import com.jwt.example.repositories.JwtRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
