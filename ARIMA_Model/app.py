@@ -10,13 +10,12 @@ from sqlalchemy import create_engine, MetaData, Table, select
 
 app = Flask(__name__)
 csv_file = './updated_Nic_test data.csv'  # Update with your CSV file path
-api_url = "http://localhost:8080/auth/fetch-redis"  # Replace with your API endpoint
+api_url = "http://microservice:8080/auth/fetch-redis"  # Replace with your API endpoint
 
 
 response = requests.get(api_url)
-
-json_data=response.json()
-df1=pd.DataFrame(json_data)
+json_data = response.json()
+df1 = pd.DataFrame(json_data)
 df1.to_csv(csv_file, mode='a', index=False, header=False)
 
 try:
@@ -37,13 +36,33 @@ db_params = {
     'dbname': 'NIC_Predictive_Analysis',
     'user': 'postgres',
     'password': 'Agartala',
-    'host': 'localhost',
+    'host': 'postgres',
     'port': '5432'
 }
 
 def create_connection(user_name, password, host_name, port, db_name):
     engine = create_engine(f'postgresql+psycopg2://{user_name}:{password}@{host_name}:{port}/{db_name}')
     return engine
+
+def ensure_table_exists():
+    try:
+        conn = psycopg2.connect(**db_params)
+        cur = conn.cursor()
+        cur.execute("""
+            CREATE TABLE IF NOT EXISTS forecast_results (
+                id SERIAL PRIMARY KEY,
+                forecast_date DATE NOT NULL,
+                forecasted_qty NUMERIC NOT NULL,
+                reqKey VARCHAR(255) NOT NULL
+            );
+        """)
+        conn.commit()
+        cur.close()
+        conn.close()
+    except Exception as e:
+        print(f"Error ensuring table exists: {e}")
+
+ensure_table_exists()
 
 def load_data(filename):
     try:
@@ -119,7 +138,7 @@ def get_data(reqKey):
         # Replace with your actual database credentials
         db_username = 'postgres'
         db_password = 'Agartala'
-        db_hostname = 'localhost'
+        db_hostname = 'postgres'
         port = 5432
         db_name = 'NIC_Predictive_Analysis'
         schema_name = 'public'
@@ -188,29 +207,38 @@ def get_forecast(reqKey):
 @app.route('/', methods=['GET'])
 def index():
     return f'''
-    <strong> Welcome to my Flask API! Navigate to.... </strong> <br>
-    <table border="1">
-        <tr>
-            <th>SlNo.</th>
-            <th>URL</th><th>Purpose</th>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td><a href='http://127.0.0.1:5000/view_redis' target='1'>http://127.0.0.1:5000/view_redis</a> </td>
-            <td>VIEW Saved Redis Data</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td><a href='http://127.0.0.1:5000/api/forecast/{reqKey}' target='2'>http://127.0.0.1:5000/api/forecast/{reqKey}</a> </td>
-            <td>Saved into Db and view the Forecasted Data</td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td><a href='http://127.0.0.1:5000/get_data/{reqKey}' target='3'>http://127.0.0.1:5000/get_data/{reqKey}</a> </td>
-            <td>View the Forecasted records from db with the Requested Key </td>
-        </tr>
-   </table>
+    <style>
+        *{{
+                background: linear-gradient(to bottom, #e6f7ff, #b3e0ff);
+                box-sizing:border-box;
+        }}
+    </style>
+    <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; margin:0; overflow:hidden; margin:auto;">
+        <h3> Welcome to my Flask API! Navigate to the following.... </h3> 
+        <table style="border-collapse: collapse; border:2px solid black; width: 100;">
+             <tr>
+                <th style="border: 2px solid black; padding: 8px; text-align:center;">Sl. No.</th>
+                <th style="border: 2px solid black; padding: 8px; text-align:center;">URL</th>
+                <th style="border: 2px solid black; padding: 8px; text-align:center;">Purpose</th>
+            </tr>
+            <tr>
+                <td style="border: 2px solid black; padding: 8px; text-align:center;">1</td>
+                <td style="border: 2px solid black; padding: 8px; text-align:center;"><a href='http://127.0.0.1:5000/view_redis' target='1'>http://127.0.0.1:5000/view_redis</a></td>
+                <td style="border: 2px solid black; padding: 8px; text-align:center;">View Current Redis Data</td>
+            </tr>
+            <tr>
+                <td style="border: 2px solid black; padding: 8px; text-align:center;">2</td>
+                <td style="border: 2px solid black; padding: 8px; text-align:center;"><a href='http://127.0.0.1:5000/api/forecast/{reqKey}' target='2'>http://127.0.0.1:5000/api/forecast/{reqKey}</a></td>
+                <td style="border: 2px solid black; padding: 8px; text-align:center;">View Forcasted Data and Save it to Database using Request Key</td>
+            </tr>
+            <tr>
+                <td style="border: 2px solid black; padding: 8px; text-align:center;">3</td>
+                <td style="border: 2px solid black; padding: 8px; text-align:center;"><a href='http://127.0.0.1:5000/get_data/{reqKey}' target='3'>http://127.0.0.1:5000/get_data/{reqKey}</a></td>
+                <td style="border: 2px solid black; padding: 8px; text-align:center;">View the Forecasted records from Database using Request Key</td>
+            </tr>
+        </table>
+    <div>
     '''
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)

@@ -4,7 +4,7 @@
 - now as we created the user entity ourself we need to tell thespring security about the User
 - we will give the user such properties which were having with springsecurity as details
 - so we has a property userdetail withspring security which represents user details'
-- this basically represents userdetails for example authorities getpassword,ec
+- this basically represents userdetails for example authorities getpassword,etc
 - now we will create a userdetailservice which will actually interact with the databse
 - comment the userservice from the appconfig file as now whener we will have injection this new file will be in use
 - we need to tell the jparepo which entity we are working on (user) and then the primaryId(type)

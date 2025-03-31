@@ -1,0 +1,66 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: postgres_db
+    restart: always
+    environment:
+      POSTGRES_DB: NIC_Predictive_Analysis
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Agartala
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+    networks:
+      - predictive_analysis
+
+  redis:
+    image: redis:latest
+    container_name: redis_cache
+    restart: always
+    ports:
+      - "6380:6379"
+    networks:
+      - predictive_analysis
+
+  microservice_api:
+    build: ./Microservices
+    container_name: microservice
+    depends_on:
+      - postgres
+      - redis
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/NIC_Predictive_Analysis
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: Agartala
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    ports:
+      - "8080:8080"
+    networks:
+      - predictive_analysis
+
+  arima_model:
+    build: ./ARIMA_Model
+    container_name: arima_model
+    depends_on:
+      - microservice_api
+      - postgres
+    entrypoint: ["sh", "-c", "echo 'Waiting for microservice to start...' && sleep 15 && python app.py"]  # ⏳ Delay before start
+    environment:
+      DATABASE_URL: postgresql://postgres:Agartala@postgres:5432/NIC_Predictive_Analysis
+      API_URL: http://microservice:8080/auth/fetch-redis
+    ports:
+      - "5000:5000"
+    networks:
+      - predictive_analysis
+
+
+volumes:
+  postgres_data:
+
+networks:
+  predictive_analysis:

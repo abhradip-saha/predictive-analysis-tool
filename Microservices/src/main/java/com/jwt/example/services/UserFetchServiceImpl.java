@@ -4,26 +4,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.jwt.example.models.User;
-import com.jwt.example.repositories.UserRepo;
+import com.jwt.example.repositories.UserFetchRepo;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserFetchServiceImpl implements UserFetchService {
 
     @Autowired
-    private UserRepo dataRepo;
-
-    @Override
-    public boolean saveData(User data){
-        return dataRepo.saveData(data);
-    }
+    private UserFetchRepo dataRepo;
 
     @Override
     public List<User> fetchAllUser() {
         return dataRepo.fetchAllUser();
-    }
-
-    @Override
-    public void deleteAllUser() {
-        dataRepo.deleteAllUser();
     }
 }

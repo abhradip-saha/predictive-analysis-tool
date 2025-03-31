@@ -1,17 +1,17 @@
 package com.jwt.example.controller;
 
-import com.jwt.example.entities.JwtUser;
 import com.jwt.example.models.JwtRequest;
 import com.jwt.example.models.JwtResponse;
+import com.jwt.example.models.JwtUser;
 import com.jwt.example.models.User;
 import com.jwt.example.security.JwtHelper;
-import com.jwt.example.services.UserService;
+import com.jwt.example.services.UserSaveService;
+import com.jwt.example.services.UserFetchService;
+import com.jwt.example.services.UserDelService;
 import com.jwt.example.services.JwtService;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,13 +36,16 @@ public class AuthController {
     private AuthenticationManager manager;
 
     @Autowired
-    private UserService dataService;
+    private UserSaveService dataSaveService;
+
+    @Autowired
+    private UserFetchService dataFetchService;
+
+    @Autowired
+    private UserDelService dataDelService;
 
     @Autowired
     private JwtHelper helper;
-
-    private Logger logger = LoggerFactory.getLogger(AuthController.class);
-
 
     @PostMapping("/login")
     public ResponseEntity<JwtResponse> login(@RequestBody JwtRequest request) {
@@ -66,7 +69,6 @@ public class AuthController {
         } catch (BadCredentialsException e) {
             throw new BadCredentialsException(" Invalid Username or Password  !!");
         }
-
     }
 
     @ExceptionHandler(BadCredentialsException.class)
@@ -75,7 +77,7 @@ public class AuthController {
     }
 
 
-     @PostMapping("/create-user")
+    @PostMapping("/create-user")
     public JwtUser createUser (@RequestBody JwtUser user){
         return jwtService.createUser(user);
     }
@@ -84,7 +86,7 @@ public class AuthController {
 
     @PostMapping("/push-redis")
     public ResponseEntity<String> saveData(@RequestBody User data){
-        boolean result = dataService.saveData(data);
+        boolean result = dataSaveService.saveData(data);
         if(result)
             return ResponseEntity.ok("Data Pushed To Redis");
         else
@@ -93,9 +95,9 @@ public class AuthController {
 
     @GetMapping("/fetch-redis")
     public ResponseEntity<List<User>> fetchAllUser(HttpServletResponse response) throws IOException {
-        List<User> data = dataService.fetchAllUser();
+        List<User> data = dataFetchService.fetchAllUser();
        
-        dataService.deleteAllUser();
+        dataDelService.deleteAllUser();
        
         return ResponseEntity.ok(data);
     }

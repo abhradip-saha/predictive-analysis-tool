@@ -1,0 +1,8 @@
+Flask
+pandas
+statsmodels
+matplotlib
+seaborn
+requests
+psycopg2
+sqlalchemy

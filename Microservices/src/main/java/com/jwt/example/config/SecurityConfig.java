@@ -26,8 +26,8 @@ public class SecurityConfig {
     @Autowired
     private UserDetailsService userDetailService; // Injecting UserDetailsService
 
-     @Autowired
-     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
 
     @Bean
@@ -57,12 +57,8 @@ public class SecurityConfig {
         return daoAuthenticationProvider;
     }
 
-
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration builder) throws Exception {
         return builder.getAuthenticationManager();
     }
-
-
-
 }

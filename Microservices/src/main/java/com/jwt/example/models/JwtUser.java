@@ -1,4 +1,4 @@
-package com.jwt.example.entities;
+package com.jwt.example.models;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -7,7 +7,6 @@ import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
