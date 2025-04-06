@@ -49,7 +49,7 @@ services:
     depends_on:
       - microservice_api
       - postgres
-    entrypoint: ["sh", "-c", "echo 'Waiting for microservice to start...' && sleep 15 && python app.py"]  # ⏳ Delay before start
+    entrypoint: ["sh", "-c", "echo 'Waiting for microservice to start...' && sleep 5 && python app.py"]  # ⏳ Delay before start
     environment:
       DATABASE_URL: postgresql://postgres:Agartala@postgres:5432/NIC_Predictive_Analysis
       API_URL: http://microservice:8080/auth/fetch-redis

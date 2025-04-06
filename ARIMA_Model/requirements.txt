@@ -1,8 +1,9 @@
 Flask
+flask-cors
 pandas
-statsmodels
 matplotlib
 seaborn
 requests
-psycopg2
-sqlalchemy
+psycopg2-binary
+SQLAlchemy
+statsmodels

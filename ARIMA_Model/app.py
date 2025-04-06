@@ -1,4 +1,5 @@
 from flask import Flask, jsonify
+from flask_cors import CORS
 import pandas as pd
 from statsmodels.tsa.arima.model import ARIMA
 import matplotlib.pyplot as plt
@@ -9,14 +10,11 @@ from psycopg2 import sql
 from sqlalchemy import create_engine, MetaData, Table, select
 
 app = Flask(__name__)
+CORS(app)
+json_data={}
 csv_file = './updated_Nic_test data.csv'  # Update with your CSV file path
 api_url = "http://microservice:8080/auth/fetch-redis"  # Replace with your API endpoint
 
-
-response = requests.get(api_url)
-json_data = response.json()
-df1 = pd.DataFrame(json_data)
-df1.to_csv(csv_file, mode='a', index=False, header=False)
 
 try:
     df2 = pd.read_csv(csv_file)
@@ -125,8 +123,12 @@ def fetch_data_from_database(engine, schema_name, table_name):
         print(f'Error fetching data from database: {e}')
         return None
 
-@app.route('/view_redis', methods=['GET'])
+@app.route('/view_redis/', methods=['GET'])
 def get_redis_data():
+    response = requests.get(api_url)
+    json_data = response.json()
+    df1 = pd.DataFrame(json_data)
+    df1.to_csv(csv_file, mode='a', index=False, header=False)
     try:
         return jsonify(json_data)
     except Exception as e:
@@ -136,6 +138,11 @@ def get_redis_data():
 def get_data(reqKey):
     try:
         # Replace with your actual database credentials
+        response = requests.get(api_url)
+        json_data = response.json()
+        df1 = pd.DataFrame(json_data)
+        df1.to_csv(csv_file, mode='a', index=False, header=False)
+
         db_username = 'postgres'
         db_password = 'Agartala'
         db_hostname = 'postgres'
@@ -161,6 +168,11 @@ def get_data(reqKey):
 
 @app.route('/api/forecast/<reqKey>', methods=['GET'])
 def get_forecast(reqKey):
+    response = requests.get(api_url)
+    json_data = response.json()
+    df1 = pd.DataFrame(json_data)
+    df1.to_csv(csv_file, mode='a', index=False, header=False)
+
     try:
         df = load_data(csv_file)
         if df is None:
@@ -223,7 +235,7 @@ def index():
             </tr>
             <tr>
                 <td style="border: 2px solid black; padding: 8px; text-align:center;">1</td>
-                <td style="border: 2px solid black; padding: 8px; text-align:center;"><a href='http://127.0.0.1:5000/view_redis' target='1'>http://127.0.0.1:5000/view_redis</a></td>
+                <td style="border: 2px solid black; padding: 8px; text-align:center;"><a href='http://127.0.0.1:5000/view_redis/' target='1'>http://127.0.0.1:5000/view_redis/</a></td>
                 <td style="border: 2px solid black; padding: 8px; text-align:center;">View Current Redis Data</td>
             </tr>
             <tr>
@@ -242,3 +254,4 @@ def index():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
+
