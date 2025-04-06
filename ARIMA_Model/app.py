@@ -8,6 +8,10 @@ import requests
 import psycopg2
 from psycopg2 import sql
 from sqlalchemy import create_engine, MetaData, Table, select
+import os
+import time
+
+os.makedirs('static', exist_ok=True)
 
 app = Flask(__name__)
 CORS(app)
@@ -193,26 +197,30 @@ def get_forecast(reqKey):
         # Save forecast to database
         save_forecast_to_db(forecast, series.index[-1])
         
-        # Plotting the forecast
         sns.set(style="whitegrid")
         plt.figure(figsize=(14, 7))
         plt.plot(series.index, series.values, label='Demand Qty', color='blue', linestyle='-', linewidth=2)
-        plt.plot(pd.date_range(start=series.index[-1], periods=forecast_steps, freq='M'), forecast, label='Forecasted Qty', color='red', linestyle='--', linewidth=2)
+        forecast_dates = pd.date_range(start=series.index[-1] + pd.DateOffset(months=1), periods=forecast_steps, freq='M')
+        plt.plot(forecast_dates, forecast, label='Forecasted Qty', color='red', linestyle='--', linewidth=2)
         plt.title('Forecasted Qty', fontsize=16)
         plt.xlabel('Date', fontsize=14)
         plt.ylabel('Demand_qty', fontsize=14)
         plt.legend(fontsize=12)
         plt.tight_layout()
+
+        # Save plot
+        image_filename = f"forecast_{reqKey}.png"
+        image_path = os.path.join("static", image_filename)
+        plt.savefig(image_path)
+        plt.close()
         
-        # Show plot in a window
-        plt.show()
-        
-        # Convert forecast to list for JSON serialization
         forecast_data = {
-            'forecasted_sales': forecast.tolist()
+            'forecasted_sales': forecast.tolist(),
+            'plot_url': f"/static/{image_filename}"
         }
         
         return jsonify(forecast_data)
+    
     except Exception as e:
         return jsonify({'error': f"An error occurred: {e}"}), 500
 
